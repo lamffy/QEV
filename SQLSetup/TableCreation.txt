@@ -1,0 +1,112 @@
+USE [OCEANO_AUDIT]
+GO
+
+/****** Object:  Table [QEV].[Records]    Script Date: 08/01/2018 08:36:25 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [QEV].[Records](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Activity] [int] NULL,
+	[Unitno] [varchar](20) NULL,
+	[ActionDateTime] [datetime] NULL,
+	[UserID] [varchar](20) NULL,
+	[ActionType] [int] NULL,
+	[Identifier] [int] NULL,
+	[TableName] [varchar](50) NULL,
+	[Sequence] [int] NULL,
+	[PPID] [varchar](20) NULL,
+ CONSTRAINT [PK_Referrals] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = ON, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+SET ANSI_PADDING ON
+
+GO
+
+/****** Object:  Index [fieldsTEST]    Script Date: 08/01/2018 08:36:26 ******/
+CREATE NONCLUSTERED INDEX [fieldsTEST] ON [QEV].[Records]
+(
+	[TableName] ASC,
+	[Sequence] ASC,
+	[Identifier] ASC
+)
+INCLUDE ( 	[ID]) WITH (PAD_INDEX = ON, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+GO
+
+SET ANSI_PADDING ON
+
+GO
+
+/****** Object:  Index [unitno]    Script Date: 08/01/2018 08:36:26 ******/
+CREATE NONCLUSTERED INDEX [unitno] ON [QEV].[Records]
+(
+	[Unitno] ASC
+)WITH (PAD_INDEX = ON, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+GO
+
+USE [OCEANO_AUDIT]
+GO
+
+/****** Object:  Table [QEV].[Fields]    Script Date: 08/01/2018 08:36:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [QEV].[Fields](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[RecordID] [int] NOT NULL,
+	[FieldName] [varchar](30) NULL,
+	[PrevValue] [varchar](50) NULL,
+	[NewValue] [varchar](50) NULL,
+	[PrevValueDesc] [varchar](100) NULL,
+	[NewValueDesc] [varchar](100) NULL,
+	[FieldType] [varchar](10) NULL,
+ CONSTRAINT [PK_Fields] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = ON, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+SET ANSI_PADDING ON
+
+GO
+
+/****** Object:  Index [QEV_REPORT]    Script Date: 08/01/2018 08:36:31 ******/
+CREATE NONCLUSTERED INDEX [QEV_REPORT] ON [QEV].[Fields]
+(
+	[RecordID] ASC,
+	[FieldType] ASC
+)
+INCLUDE ( 	[FieldName],
+	[PrevValue],
+	[NewValue],
+	[PrevValueDesc],
+	[NewValueDesc]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+
+
